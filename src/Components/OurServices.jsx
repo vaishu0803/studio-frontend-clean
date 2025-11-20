@@ -13,7 +13,7 @@ const ALL_SERVICES = [
   { slug: "candid-videography", title: "Candid Videography", image: "/images/26.jpg", type: "photo" },
   { slug: "pre-wedding-shoot", title: "Pre-Wedding Shoot", image: "/images/37.jpg", type: "photo" },
   { slug: "drone-coverage", title: "Drone & Aerial Coverage", image: "/images/31.jpg", type: "photo" },
-  { slug: "live-streaming", title: "Live Streaming", image: "/images/32.jpg", type: "photo" },
+  { slug: "live-streaming", title: "Live Streaming", image: "/images/40.jpg", type: "photo" },
   { slug: "photo-booth", title: "Photo Booth", image: "/images/36.jpg", type: "photo" },
 ];
 
