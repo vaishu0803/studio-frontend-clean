@@ -1,0 +1,86 @@
+/* src/components/ServiceCards.css */
+
+/* Gold shimmer animation */
+@keyframes shimmerMove {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;  /* <-- FIX */
+}
+
+/* ensure transforms aren't clipped from parents accidentally */
+section { overflow: visible; }
+
+/* If a fixed footer overlaps the button, raise the button above it */
+.service-explore {
+  position: relative;
+  z-index: 0;
+}
+
+.shimmer-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(192, 160, 96, 0.28) 50%,
+    transparent 100%
+  );
+  animation: shimmerMove 2.2s infinite;
+}
+
+
+/* ServiceCards.css */
+
+/* extra bottom room so card shadows & hover scale won't ever overlap the button */
+.service-cards-grid {
+  padding-bottom: 1.5rem; /* already added via Tailwind classes, this is a fallback */
+}
+
+/* ensure the section doesn't clip scaled cards */
+section[aria-labelledby="services-heading"] {
+  overflow: visible;
+}
+
+/* raise the button above cards and any sticky footer */
+.explore-wrapper {
+  z-index: 40;
+  position: relative;
+}
+
+/* keep cards and their shadows under the button */
+.service-cards-grid > article,
+.service-cards-grid > * {
+  z-index: 10;
+  position: relative;
+}
+
+/* optional: make divider visible and spaced */
+.service-divider {
+  margin-bottom: 1.25rem;
+}
+
+
+
+/* Optional: small responsive tweak so diamond divider always centered nicely */
+@media (max-width: 640px) {
+  .ornamental-divider {
+    transform: scaleX(0.85);
+  }
+}
