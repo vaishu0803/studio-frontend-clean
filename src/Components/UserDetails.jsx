@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from "../config";
+
 
 const UserDetails = ({ globalSelections, calculateTotal, onBack }) => {
   const [formData, setFormData] = useState({
@@ -21,7 +23,7 @@ const UserDetails = ({ globalSelections, calculateTotal, onBack }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/send-quotation", {
+      const response = await fetch(`${API_BASE_URL}/send-quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
