@@ -6,16 +6,8 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import StatsCounters from './StatsCounters';
 import AboutExtras from './AboutExtras';
-/**
- * AboutCompanySection.jsx
- *
- * Layout:
- * LEFT  — a paragraph about the company (animated)
- * RIGHT — an image placeholder (animated)
- *
- * Use anywhere below the hero.
- * Replace the placeholder image with your final asset.
- */
+
+// Decorative SVG Divider (Keep this the same)
 const OrnamentalDivider = () => (
   <motion.div
     initial={{ scaleX: 0 }}
@@ -29,108 +21,96 @@ const OrnamentalDivider = () => (
     <svg width="160" height="12" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6 6 H60" stroke="#C0A060" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M100 6 H154" stroke="#C0A060" strokeWidth="1.6" strokeLinecap="round" />
-      <g transform="translate(73,2)">
-        <rect x="0" y="0" width="14" height="8" rx="1" transform="rotate(45 7 4)" fill="#C0A060" />
-      </g>
+      <circle cx="80" cy="6" r="4" fill="#C0A060" />
     </svg>
   </motion.div>
 );
 
 export default function Aboutus() {
   return (
-    <section className="w-full">
-         <div className="w-full">
+    // STEP 1: CRITICAL FIX FOR HORIZONTAL SCROLL
+    // This tells the browser to hide any content that exceeds the viewport width.
+    <div className='w-full min-h-screen bg-[#FAF8F3] overflow-x-hidden'>
       <Navbar />
-    </div>
-          <div className="w-full">
+      
+      {/* 1. HERO SECTION */}
       <About />
-    </div>
- 
-  <section className="w-full bg-white py-16 md:py-24">
-  <div
-    className="
-      w-full 
-      px-4 sm:px-6 md:px-10 lg:px-16
-      grid grid-cols-1 md:grid-cols-2
-      gap-10 items-center
-    "
-  >
-    {/* LEFT TEXT */}
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, amount: 0.3 }}
-      className="space-y-4"
-    >
-        
-      <h2  className='text-3xl text-center mb-12 px-4  md:text-4xl font-semibold text-[#B22222] font-[Playfair_Display] tracking-wide leading-tight'>
-                              Thanks for stopping by!
-      </h2>
-       
-        {/* Ornamental Divider */}
-      <div className="flex justify-center mb-12">
-        <OrnamentalDivider />
-      </div>
+      
+      {/* 2. ABOUT COMPANY INTRO SECTION (The Founder Image/Text Section) */}
+      <section className="w-full py-16 md:py-32 bg-white">
+        {/* The inner grid container ensures content is contained and centered */}
+        <div 
+          className="max-w-7xl mx-auto px-6 md:px-12 
+          grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 
+          items-center"
+        >
+          {/* LEFT TEXT CONTENT (order-2 on mobile, order-1 on desktop) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+            // Fix: Added max-w-xl and mx-auto for better mobile containment
+            className="order-2 md:order-1 text-center md:text-left mx-auto md:mx-0 max-w-xl" 
+          >
+            <p className="tracking-[0.3em] text-sm text-gray-500 mb-3">
+              THE STUDIO
+            </p>
+            
+            <h2 className="font-[Playfair_Display] text-4xl md:text-5xl leading-tight text-[#8B0000] tracking-tight mb-6">
+              Capturing moments, crafting memories.
+            </h2>
+            
+            <div className="flex justify-center md:justify-start mb-6">
+                <OrnamentalDivider />
+            </div>
+            
+            <p className="text-[#1C1C1C]/80 text-base md:text-lg mt-6 mb-4">
+              We've been shooting weddings, portraits, and corporate functions
+              across Hyderabad and beyond, chasing natural light, candid expression, and the small in-between moments
+              that become memory.
+            </p>
 
-     
-      <p className="text-center text-[#1C1C1C]/80 italic text-base md:text-lg mb-6">
-        I’m Vaishnavi , Snapshoot Photographer based in Hyderabad. I take a documentary-first approach, keeping
-    direction minimal and letting honest moments lead. I shoot weddings, families and intimate celebrations
-    across Hyderabad and beyond, chasing natural light, candid expression, and the small in-between moments
-    that become memory.
-      </p>
+            <p className="text-[#1C1C1C]/80 italic text-base md:text-lg mb-6">
+              My aim is simple: images that feel timeless, alive and true to the moment. If you like photographs that
+              feel like lived memory warm, honest, and joyful . I’d love to tell a part of your story.
+            </p>
+          </motion.div>
 
-      <p className="text-center text-[#1C1C1C]/80 italic text-base md:text-lg mb-6">
-         My aim is simple: images that feel timeless, alive and true to the moment. If you like photographs that
-    feel like lived memory warm, honest, and joyful . I’d love to tell a part of your story.
-      </p>
-    </motion.div>
+          {/* RIGHT IMAGE (order-1 on mobile, order-2 on desktop) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+            // Fix: Added max-w-lg and mx-auto for better mobile containment and to prevent stretching
+            className="w-full h-64 md:h-[420px] rounded-2xl overflow-hidden shadow-lg order-1 md:order-2 max-w-lg mx-auto"
+          >
+            <img
+              src="/images/cap.webp" 
+              alt="About our photography"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </section>
 
-    {/* RIGHT IMAGE (ACTUAL IMG TAG ADDED HERE!) */}
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
-      className="w-full h-64 md:h-[420px] rounded-2xl overflow-hidden shadow-lg"
-    >
-      <img
-        src="/images/cap.webp"  // ← change this path
-        alt="About our photography"
-        className="w-full h-full object-cover"
-      />
-    </motion.div>
-  </div>
+      {/* 3. MEET THE TEAM SECTION */}
+      <section className="w-full">
+        <MeetTheTeam />
+      </section>
 
-</section>
+      {/* 4. STATS COUNTERS SECTION */}
+      <section className="w-full py-16">
+        <StatsCounters />
+      </section>
 
- <section className="w-full">
-          <div className="w-full">
-      <MeetTheTeam />
-    </div>
-</section>
+      {/* 5. ABOUT EXTRAS SECTION (Values, Travel Strip) */}
+      <section className="w-full">
+        <AboutExtras />
+      </section>
 
-<section className="w-full">
-    <div className='w-full'>
-      <StatsCounters />
-    </div>
-</section>
-
-<section className="w-full">
-          <div className="w-full">
-      <AboutExtras />
-    </div>
-</section>
-
-<section className="w-full">
-          <div className="w-full">
       <Footer />
     </div>
-</section>
-
-
-   </section>
-
   );
 }

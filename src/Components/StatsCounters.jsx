@@ -90,7 +90,7 @@ export default function StatsCounters({ items = ITEMS, duration = 1400 }) {
           {items.map((it) => (
             <div
               key={it.id}
-              className="bg-[#FAF8F3] shadow-md rounded-xl p-6 flex flex-col items-center"
+             className="bg-[#FAF8F3] shadow-md rounded-xl p-6 flex flex-col items-center min-w-0"
             >
               {/* BIG NUMBER */}
               <div className="flex items-baseline gap-1">

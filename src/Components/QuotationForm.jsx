@@ -69,6 +69,15 @@ const QuotationForm = () => {
     calculateTotal();
   }, [globalSelections, calculateTotal]);
 
+  // small reflow nudge to reduce transient clipping when animations / transforms mount
+  useEffect(() => {
+    const t = setTimeout(() => {
+      // read to force reflow; helps when other components mount/animate quickly
+      void document.body.offsetHeight;
+    }, 60);
+    return () => clearTimeout(t);
+  }, []);
+
   const goTo = (nextStep) => {
     setHistory((h) => {
       if (h.length && h[h.length - 1] === step) return h;
@@ -128,30 +137,15 @@ const QuotationForm = () => {
 
   return (
     <div className="min-h-screen w-screen bg-white text-center flex flex-col items-center relative">
-      <Navbar />
-
-      {/* Intro block (appears after start) */}
-      {step !== "start" && (
-        <div style={{ width: "100%", maxWidth: 1200, padding: "18px 20px", boxSizing: "border-box" }}>
-          <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
-            {introLines.map((t, i) => (
-              <p key={i} style={{ margin: 6, color: "#3b4451", fontSize: i === 0 ? 18 : 14 }}>
-                {t}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Circular badge — moved down so it doesn't overlap navbar; white outer bg + red inner circle */}
+      {/* ---------- Estimated badge (kept inside this file; shallow placement) ---------- */}
       {showBadge && (
         <div
-          aria-hidden
+          aria-hidden="true"
           style={{
             position: "fixed",
             top: 86,
             left: 18,
-            zIndex: 1200,
+            zIndex: 2147483647, // very high z-index to avoid being covered
             width: 96,
             height: 96,
             borderRadius: 999,
@@ -161,6 +155,10 @@ const QuotationForm = () => {
             justifyContent: "center",
             boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
             padding: 8,
+            pointerEvents: "none",
+            transform: "translateZ(0)", // small GPU nudge
+            willChange: "transform, opacity",
+            // outline: "3px dashed lime", // enable temporarily for debugging
           }}
         >
           <div style={{
@@ -173,12 +171,29 @@ const QuotationForm = () => {
             justifyContent: "center",
             color: "white",
             fontWeight: 800,
-            boxShadow: "0 6px 12px rgba(178,34,34,0.12)"
+            boxShadow: "0 6px 12px rgba(178,34,34,0.12)",
+            pointerEvents: "none"
           }}>
             <div style={{ textAlign: "center", fontSize: 12 }}>
               <div style={{ fontSize: 16 }}>₹{total.toLocaleString()}</div>
               <div style={{ fontSize: 10, opacity: 0.95 }}>Estimated</div>
             </div>
+          </div>
+        </div>
+      )}
+      {/* ---------- end badge ---------- */}
+
+      <Navbar />
+
+      {/* Intro block (appears after start) */}
+      {step !== "start" && (
+        <div style={{ width: "100%", maxWidth: 1200, padding: "18px 20px", boxSizing: "border-box" }}>
+          <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
+            {introLines.map((t, i) => (
+              <p key={i} style={{ margin: 6, color: "#3b4451", fontSize: i === 0 ? 18 : 14 }}>
+                {t}
+              </p>
+            ))}
           </div>
         </div>
       )}

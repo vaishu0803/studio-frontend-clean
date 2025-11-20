@@ -278,7 +278,7 @@ export default function About({
         </a>
 
         <a
-          href="/portfolio"
+          href="/gallery"
           style={{
             background: "#fff",
             color: "#111",

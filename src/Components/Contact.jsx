@@ -83,34 +83,45 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-screen text-[#1C1C1C] bg-[color:var(--bg,#FAF8F3)]">
+    // paddingTop set to 0 so navbar overlaps the hero (we pull hero up below)
+    <div className="min-h-screen text-[#1C1C1C] bg-[color:var(--bg,#FAF8F3)]" style={{ paddingTop: 0 }}>
       <Navbar />
 
-      {/* HERO */}
-      <section className="relative w-screen left-1/2 -translate-x-1/2 h-screen overflow-hidden">
-        <img src="/images/9.webp" alt="hero" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/30" />
+      {/* HERO — pulled up so navbar overlaps it */}
+      <section
+        className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden"
+        style={{
+          // extend hero height by nav height and pull it up by nav height so nav overlaps
+          height: "calc(100vh + var(--nav-height, 64px))",
+          marginTop: `calc(var(--nav-height, 64px) * -1)`,
+          zIndex: 0, // ensure navbar (higher z-index) sits above hero
+        }}
+      >
+        <img
+          src="/images/9.webp"
+          alt="hero"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 0 }}
+        />
+        <div className="absolute inset-0 bg-black/30" style={{ zIndex: 1 }} />
       </section>
 
       {/* Image + Form */}
-      {/* REPLACE your existing section block with this */}
-<section className="max-w-7xl mx-auto px-6 py-12">
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-    {/* LEFT: image — stacks on small, stretches on lg */}
-    <div className="order-1 flex flex-col">
-      <div className="rounded-xl shadow-lg overflow-hidden flex-1">
-        <img
-          src="/images/36.jpg"
-          alt="studio"
-          className="w-full h-[420px] md:h-[520px] lg:h-full object-cover block"
-        />
-      </div>
-    </div>
+      <section className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          {/* LEFT: image — stacks on small, stretches on lg */}
+          <div className="order-1 flex flex-col">
+            <div className="rounded-xl shadow-lg overflow-hidden flex-1">
+              <img
+                src="/images/36.jpg"
+                alt="studio"
+                className="w-full h-[420px] md:h-[520px] lg:h-full object-cover block"
+              />
+            </div>
+          </div>
 
-    {/* RIGHT: form */}
-    <div className="order-2 bg-white rounded-2xl p-8 shadow-lg" id="contact-form">
-     
-
+          {/* RIGHT: form */}
+          <div className="order-2 bg-white rounded-2xl p-8 shadow-lg" id="contact-form">
             <h2 className="text-2xl font-semibold">Get a tailored quote</h2>
             <p className="text-sm text-gray-600 mt-2">Fill basic details and we'll reach out with availability and a quote.</p>
 

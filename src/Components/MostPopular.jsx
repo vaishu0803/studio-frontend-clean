@@ -14,23 +14,22 @@ const ITEMS = [
 export default function MostPopular() {
   return (
     <section className="relative w-full overflow-hidden">
-
-      {/* Cream top */}
+      {/* small cream top bar — much shorter so no big gap */}
       <div
         style={{
-          height: "130px",
+          height: "56px",
           background: "#FAF8F3",
           width: "100%",
         }}
       />
 
-      {/* Slanted tan background */}
+      {/* slanted tan background (reduced height) */}
       <div
         style={{
           position: "absolute",
           top: 0,
           width: "100%",
-          height: "85vh",
+          height: "45vh",            // reduced from 85vh -> 45vh
           transform: "skewY(-6deg)",
           transformOrigin: "top left",
           backgroundColor: "#C1AA92",
@@ -38,7 +37,7 @@ export default function MostPopular() {
         }}
       />
 
-      {/* Behind slanted (flat) */}
+      {/* behind slanted (flat) */}
       <div
         style={{
           position: "absolute",
@@ -48,32 +47,22 @@ export default function MostPopular() {
         }}
       />
 
-      {/* REAL CONTENT */}
-      <div
-  className="w-full px-10 md:px-20 pb-[150px]"
-  style={{ marginTop: "80px" }}
->
-
-        
+      {/* REAL CONTENT: remove large marginTop and big bottom padding */}
+      <div className="w-full px-6 md:px-12 lg:px-20 py-12 md:py-20">
         {/* Heading */}
-        <h2 className="text-center font-serif text-4xl text-[#3C2F28] mb-14">
+        <h2 className="text-center font-serif text-4xl text-[#3C2F28] mb-12">
           Most Popular
         </h2>
 
-        {/* GRID — Always 3 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-
+        {/* GRID — responsive */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {ITEMS.map((it) => (
             <article key={it.id} className="relative">
-
-              {/* Square Thumbnail */}
               <Link
                 to={`/gallery?video=${it.slug}`}
-                className="block w-full bg-black"
+                className="block w-full bg-black rounded-md overflow-hidden"
                 style={{
                   aspectRatio: "16/9",
-                  borderRadius: "0px",
-                  overflow: "hidden",
                 }}
               >
                 {it.poster ? (
@@ -92,9 +81,9 @@ export default function MostPopular() {
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div
                   style={{
-                    width: "58px",
-                    height: "58px",
-                    borderRadius: "999px",
+                    width: 58,
+                    height: 58,
+                    borderRadius: 999,
                     background: "white",
                     boxShadow: "0 6px 20px rgba(0,0,0,0.35)",
                     display: "flex",
@@ -107,10 +96,8 @@ export default function MostPopular() {
                   </svg>
                 </div>
               </div>
-
             </article>
           ))}
-
         </div>
       </div>
     </section>

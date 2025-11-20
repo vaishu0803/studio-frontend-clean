@@ -31,166 +31,112 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section
-      id="testimonials"
-      aria-label="Client testimonials"
-      style={{
-        width: "100%",
-        background: "#FAF8F3",
-        position: "relative",
-        zIndex: 30,
-        paddingTop: "2.25rem",
-        paddingBottom: "2.5rem",
-        boxSizing: "border-box",
-      }}
-    >
-      <style>{`
-        /* ensure swiper occupies its container and slides center */
-        .testimonials-safe-wrapper { display:flex; justify-content:center; width:100%; box-sizing:border-box; }
-        .testimonials-inner { width: 100%; max-width: 1200px; box-sizing: border-box; padding: 0 16px; }
-
-        /* Force swiper to center slides and not overflow */
-        .swiper { width: 100% !important; overflow: visible !important; box-sizing: border-box; }
-        .swiper-wrapper { align-items: stretch; box-sizing: border-box; }
-        .swiper-slide { display:flex !important; justify-content:center !important; align-items: stretch !important; box-sizing: border-box !important; width: 100% !important; min-width: 0 !important; }
-
-        /* card sizing: small gutters on mobile */
-        .testimonial-card {
-          width: calc(100% - 48px);
-          max-width: 640px;
-          background: #fff;
-          border-radius: 14px;
-          padding: 16px;
-          box-shadow: 0 10px 28px rgba(0,0,0,0.08);
-          box-sizing: border-box;
-          display:flex;
-          flex-direction:column;
-          margin: 0 auto;
-          transition: transform 220ms ease, box-shadow 220ms ease;
-          will-change: transform;
-        }
-
-        .testimonial-card:hover{ transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-
-        .testimonial-top { display:flex; gap:12px; align-items:center; }
-        .testimonial-avatar { width:56px; height:56px; border-radius:9999px; object-fit:cover; flex-shrink:0; }
-        .testimonial-title { margin:0; font-size:1.05rem; color:#B22222; font-weight:600; }
-        .testimonial-feedback { margin-top:12px; font-size:0.98rem; color:#374151; line-height:1.45; }
-
-        /* pagination centered under the card */
-        .swiper-pagination { bottom: -18px !important; left: 50% !important; transform: translateX(-50%) !important; }
-
-        /* tablet and up: two per view (Swiper breakpoints handle view change) */
-        @media (min-width: 768px) {
-          .testimonial-card { max-width: 520px; padding:18px; }
-          .testimonial-avatar { width:72px; height:72px; }
-        }
-
-        /* desktop: show 3 cards per row, larger avatars, show share, adjust spacing */
-        @media (min-width: 1024px) {
-          /* expand card more on desktop — only 2 big cards per view */
-          .testimonial-card {
-            width: calc((100% - 48px) / 2);
-            max-width: 680px;
-            padding: 26px;
-            border-radius: 18px;
-          }
-          .testimonial-avatar { width:96px; height:96px; }
-          .testimonial-feedback { font-size:1.08rem; line-height:1.55; }
-          .swiper-pagination { bottom: -32px !important; }
-          .sm\:flex { display: flex !important; }
-          .swiper-slide { justify-content:center !important; }
-        }
-          .testimonial-avatar { width:84px; height:84px; }
-          .testimonial-feedback { font-size:1rem; }
-          .swiper-pagination { bottom: -28px !important; }
-
-          /* surface a simple metadata row and share button on desktop */
-          .sm\\:flex { display: flex !important; }
-
-          /* keep slides aligned to start on larger screens */
-          .swiper-slide { justify-content:flex-start !important; }
-        }
-
-        /* safety: prevent horizontal scrolling from other elements */
-        html, body, #root { overflow-x: hidden; }
-      `}</style>
-
-      {/* heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto text-center px-4 mb-8"
-        style={{ paddingLeft: 16, paddingRight: 16 }}
-      >
-        <h2 style={{ color: "#B22222", fontSize: 28, fontWeight: 700, margin: 0 }}>
-          What Our Clients Say
-        </h2>
-        <div style={{ marginTop: 10, display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
-          <span style={{ width: 56, height: 4, background: "#C0A060", borderRadius: 999, display: "inline-block" }} />
-          <p style={{ margin: 0, color: "#6B7280", maxWidth: 520, fontSize: 14 }}>
-            Real experiences shared by our happy couples.
-          </p>
-          <span style={{ width: 56, height: 4, background: "#C0A060", borderRadius: 999, display: "inline-block" }} />
+    <section className="w-full py-16 md:py-24 bg-[#F8F8F8]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className='text-4xl md:text-6xl font-semibold text-[#8B0000] font-[Playfair_Display] tracking-tight leading-tight'>
+            Hear From Our Couples
+          </h2>
+          <p className="mt-2 text-gray-600">Real stories from the beautiful celebrations we’ve captured.</p>
         </div>
-      </motion.div>
 
-      {/* defensive wrappers */}
-      <div className="testimonials-safe-wrapper" aria-hidden="false">
-        <div className="testimonials-inner">
+        {/* SWIPER CONTAINER */}
+        <div className="relative">
           <Swiper
-            slidesPerView={1}          // 1 on mobile — guaranteed
+            modules={[Pagination, Autoplay]}
+            spaceBetween={30}
+            slidesPerView={1}
             centeredSlides={true}
-            spaceBetween={20}
+            // Responsive Swiper settings: 1 slide on mobile, 2 slides on tablet/desktop
+            breakpoints={{
+              768: { // md breakpoint and above
+                slidesPerView: 2,
+                spaceBetween: 40,
+              },
+              1024: { // lg breakpoint and above
+                slidesPerView: 3,
+                spaceBetween: 50,
+              },
+            }}
             loop={true}
             pagination={{ clickable: true }}
-            autoplay={{ delay: 4200, disableOnInteraction: false }}
-            modules={[Pagination, Autoplay]}
-            breakpoints={{
-              768: { slidesPerView: 2, centeredSlides: false, spaceBetween: 28 },
-              1024: { slidesPerView: 3, centeredSlides: false, spaceBetween: 32 },
-            }}
-            className="py-4"
+            autoplay={{ delay: 4500, disableOnInteraction: false }}
+            className="testimonial-swiper py-10" // Padding for pagination dots
           >
-            {testimonials.map((t, idx) => (
-              <SwiperSlide key={idx}>
-                <article className="testimonial-card" aria-label={`testimonial ${t.name}`}>
-                  <div className="testimonial-top">
-                    <img src={t.image} alt={`${t.name} avatar`} className="testimonial-avatar" loading="lazy" />
-                    <div style={{ minWidth: 0 }}>
-                      <h3 className="testimonial-title">{t.name}</h3>
-                      <div style={{ marginTop: 6, display: "flex", gap: 8, alignItems: "center" }}>
-                        <span style={{ width: 8, height: 8, borderRadius: 8, background: "#C0A060", display: "inline-block" }} />
-                        <span style={{ fontSize: 13, color: "#6B7280" }}>Verified client</span>
-                      </div>
+            {testimonials.map((t, index) => (
+              <SwiperSlide key={index} className="px-1 pt-1 pb-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  className="bg-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col h-full hover:shadow-2xl transition-shadow"
+                >
+                  
+                  {/* Image and Name */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-16 h-16 rounded-full object-cover shadow-md"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold text-[#8B0000]">{t.name}</h3>
+                      <p className="text-xs text-gray-500">Happy Couple</p>
                     </div>
-
-                    <svg style={{ marginLeft: 12, flexShrink: 0 }} className="w-7 h-7 text-[#C0A060]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M7.17 6A4 4 0 0 0 4 10v4a2 2 0 0 0 2 2h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                  </div>
+                  
+                  {/* Quote Icon */}
+                  <div className="mb-4 text-[#C0A060] flex-shrink-0">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path d="M7.83 6A4 4 0 0 0 4 10v4a2 2 0 0 0 2 2h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                       <path d="M17.17 6A4 4 0 0 0 14 10v4a2 2 0 0 0 2 2h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
 
-                  <p className="testimonial-feedback">“{t.feedback}”</p>
+                  {/* Feedback Text */}
+                  {/* Increased text size for better readability */}
+                  <p className="text-gray-700 italic text-base md:text-lg mb-6 flex-grow">
+                    “{t.feedback}”
+                  </p>
 
-                  <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <span style={{ padding: "6px 10px", borderRadius: 999, border: "1px solid #F3EAD2", background: "#FFFDFC", fontSize: 12, color: "#4B5563" }}>Wedding</span>
-                      <span style={{ color: "#9CA3AF", fontSize: 12 }}>•</span>
-                      <span style={{ color: "#9CA3AF", fontSize: 12 }}>2025</span>
+                  {/* Details and Share Buttons */}
+                  <div className="mt-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-3 border-t border-gray-100">
+                    
+                    {/* Tags & Date */}
+                    <div className="flex gap-3 items-center text-sm">
+                      <span className="px-3 py-1 rounded-full border border-[#F3EAD2] bg-[#FFFDFC] text-gray-600 font-medium">
+                        Wedding
+                      </span>
+                      <span className="text-gray-400">•</span>
+                      <span className="text-gray-400">2025</span>
                     </div>
-                    <div style={{ display: "none" }} className="sm:flex items-center gap-2">
-                      <button aria-label="share testimonial" style={{ padding: "8px 10px", borderRadius: 8, background: "#FFFDFC", border: "1px solid #F3EAD2", fontSize: 13, cursor: 'pointer' }}>Share</button>
+                    
+                    {/* Share Button (hidden on mobile, shown on tablet/desktop) */}
+                    <div className="hidden sm:flex items-center gap-2">
+                      <button aria-label="share testimonial" className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition text-gray-500 text-sm">
+                        Share Story
+                      </button>
                     </div>
                   </div>
-                </article>
+                </motion.div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
+      
+      {/* Custom Styles for Swiper Pagination */}
+      <style>{`
+        .testimonial-swiper .swiper-pagination-bullet {
+          background: #C0A060 !important;
+          opacity: 0.4;
+          transition: opacity 0.3s;
+        }
+        .testimonial-swiper .swiper-pagination-bullet-active {
+          opacity: 1;
+        }
+      `}</style>
     </section>
   );
 }

@@ -145,6 +145,12 @@ body {
   box-shadow: none !important;
 }
 
+/* index.css (or your global CSS) — add at top */
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; overflow-x: hidden; }
+img, picture, video { max-width: 100%; height: auto; display: block; }
+
+
 /* small responsive tweak so icons align like the reference */
 @media (min-width: 1024px) {
   .shared-icons-section .icon-wrap { width: 120px; height: 120px; }

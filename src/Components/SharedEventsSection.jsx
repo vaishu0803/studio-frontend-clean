@@ -234,27 +234,84 @@ export default function SharedEventsSection({ globalSelections, setGlobalSelecti
             </div>
 
             {/* Bottom Navigation */}
-            <div className="flex items-center justify-between mt-12 px-6 w-full">
-              <div className="text-sm text-gray-600">You can select multiple services. Hover or tap to see prices.</div>
+           
+                        {/* Bottom Navigation */}
+            <div
+              className="shared-bottom-nav"
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginTop: 36,
+                padding: "18px 24px",
+                boxSizing: "border-box",
+                position: "sticky",      // sticky keeps it inside the flow but above content when needed
+                bottom: 8,
+                left: 0,
+                zIndex: 9999,           // ensure it's above most elements (badge, shadows)
+                background: "transparent"
+              }}
+            >
+              <div style={{ color: "#4b5563", fontSize: 15 }}>
+                You can select multiple services. Hover or tap to see prices.
+              </div>
 
-              <div className="flex items-center gap-4">
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {currentIndex > 0 && (
-                  <button onClick={handlePrevious} className="px-6 py-3 rounded-2xl text-white font-semibold" style={{ background: "#1C1C1C" }}>
+                  <button
+                    onClick={handlePrevious}
+                    style={{
+                      padding: "10px 18px",
+                      borderRadius: 24,
+                      background: "#1C1C1C",
+                      color: "#fff",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "0 6px 18px rgba(0,0,0,0.12)"
+                    }}
+                  >
                     ← Previous
                   </button>
                 )}
 
                 {currentIndex < sharedEventsList.length - 1 ? (
-                  <button onClick={handleNext} className="px-6 py-3 rounded-2xl text-white font-semibold" style={{ background: "#8B0000" }}>
+                  <button
+                    onClick={handleNext}
+                    style={{
+                      padding: "10px 18px",
+                      borderRadius: 24,
+                      background: "#8B0000",
+                      color: "#1C1C1C",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "0 6px 18px rgba(139,0,0,0.16)"
+                    }}
+                  >
                     Next →
                   </button>
                 ) : (
-                  <button onClick={handleContinue} className="px-6 py-3 rounded-2xl text-white font-semibold" style={{ background: "#8B0000" }}>
+                  <button
+                    onClick={handleContinue}
+                    style={{
+                      padding: "10px 18px",
+                      borderRadius: 24,
+                      background: "#8B0000",
+                      color: "#1C1C1C",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "0 6px 18px rgba(139,0,0,0.16)"
+                    }}
+                  >
                     Continue →
                   </button>
                 )}
               </div>
             </div>
+
           </motion.div>
         )}
       </AnimatePresence>
