@@ -15,6 +15,7 @@ const ALL_SERVICES = [
   { slug: "drone-coverage", title: "Drone & Aerial Coverage", image: "/images/31.jpg", type: "photo" },
   { slug: "live-streaming", title: "Live Streaming", image: "/images/40.jpg", type: "photo" },
   { slug: "photo-booth", title: "Photo Booth", image: "/images/36.jpg", type: "photo" },
+
 ];
 
 
