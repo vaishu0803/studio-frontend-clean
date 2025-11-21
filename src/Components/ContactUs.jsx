@@ -130,7 +130,7 @@ const OrnamentalDivider = () => (
 
                 <div className="mt-8">
                   <a
-                    href="/quotation"
+                    href="/contact"
                     className="inline-flex items-center gap-3 bg-[#8B0000] hover:bg-[#A31621] text-white font-semibold py-3 px-8 rounded-full transition-shadow shadow-lg"
                   >
                     Contact Us
